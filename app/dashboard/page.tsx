@@ -1,10 +1,11 @@
 'use client';
 
-import { Users, DollarSign, TrendingUp, Target } from 'lucide-react';
+import { Users, DollarSign } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { StatCard, StatsGrid } from '@/components/dashboard/stat-card';
 import { RecentReferrals } from '@/components/dashboard/recent-referrals';
 import { EarningsChart } from '@/components/dashboard/earnings-chart';
+import { MarketplaceOverview } from '@/components/dashboard/marketplace-overview';
 import Link from 'next/link';
 
 export default function DashboardPage() {
@@ -14,11 +15,16 @@ export default function DashboardPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold">Dashboard</h1>
-          <p className="text-muted-foreground mt-1">Welcome back, John! Here's your referral overview.</p>
+          <p className="text-muted-foreground mt-1">Welcome back, John! Here's your overview.</p>
         </div>
-        <Link href="/dashboard/links">
-          <Button>Create New Referral Link</Button>
-        </Link>
+        <div className="flex gap-2">
+          <Link href="/dashboard/marketplace">
+            <Button variant="outline">Browse Marketplace</Button>
+          </Link>
+          <Link href="/dashboard/links">
+            <Button>Create New Referral Link</Button>
+          </Link>
+        </div>
       </div>
 
       {/* Stats Grid */}
@@ -35,12 +41,6 @@ export default function DashboardPage() {
             },
           },
           {
-            label: "Active Referrals",
-            value: "18",
-            icon: Target,
-            description: "Members actively using platform",
-          },
-          {
             label: "Total Earnings",
             value: "$2,845.50",
             icon: DollarSign,
@@ -49,12 +49,6 @@ export default function DashboardPage() {
               label: 'vs last week',
               direction: 'up',
             },
-          },
-          {
-            label: "Conversion Rate",
-            value: "75%",
-            icon: TrendingUp,
-            description: "Signup to active conversion",
           },
         ]}
       />
@@ -65,6 +59,9 @@ export default function DashboardPage() {
           <EarningsChart />
         </div>
       </div>
+
+      {/* Marketplace Overview */}
+      <MarketplaceOverview />
 
       {/* Recent Referrals */}
       <RecentReferrals />

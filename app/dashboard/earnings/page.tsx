@@ -7,7 +7,7 @@ import { EarningsOverview } from '@/components/earnings/earnings-overview';
 import { PaymentHistory } from '@/components/earnings/payment-history';
 import { WithdrawalDialog } from '@/components/earnings/withdrawal-dialog';
 import { StatCard, StatsGrid } from '@/components/dashboard/stat-card';
-import { Wallet, TrendingUp, Calendar } from 'lucide-react';
+import { Wallet, TrendingUp } from 'lucide-react';
 import {
   Select,
   SelectContent,
@@ -51,12 +51,6 @@ export default function EarningsPage() {
               label: 'vs last week',
               direction: 'up',
             },
-          },
-          {
-            label: "This Month",
-            value: "$1,124.75",
-            icon: Calendar,
-            description: "27 days left",
           },
         ]}
       />
