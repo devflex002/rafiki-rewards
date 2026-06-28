@@ -7,7 +7,8 @@ import { ProfileForm } from '@/components/profile/profile-form';
 import { PaymentSettings } from '@/components/profile/payment-settings';
 import { NotificationSettings } from '@/components/profile/notification-settings';
 import { PrivacySettings } from '@/components/profile/privacy-settings';
-import { User, CreditCard, Bell, Lock } from 'lucide-react';
+import { StatCard, StatsGrid } from '@/components/dashboard/stat-card';
+import { User, CreditCard, Bell, Lock, CheckCircle, AlertCircle, BarChart3 } from 'lucide-react';
 
 export default function ProfilePage() {
   return (
@@ -17,6 +18,34 @@ export default function ProfilePage() {
         <h1 className="text-3xl font-bold">Profile & Settings</h1>
         <p className="text-muted-foreground mt-1">Manage your account and preferences</p>
       </div>
+
+      {/* Stats Grid */}
+      <StatsGrid
+        cards={[
+          {
+            label: "Account Status",
+            value: "Active",
+            icon: CheckCircle,
+            description: "Fully verified",
+          },
+          {
+            label: "Payment Method",
+            value: "Connected",
+            icon: CreditCard,
+            description: "Bank account",
+          },
+          {
+            label: "Account Created",
+            value: "120 days",
+            icon: BarChart3,
+            trend: {
+              value: 2,
+              label: 'active months',
+              direction: 'up',
+            },
+          },
+        ]}
+      />
 
       {/* Tabs */}
       <Tabs defaultValue="profile" className="w-full">

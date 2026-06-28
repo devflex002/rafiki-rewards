@@ -6,6 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { EarningsOverview } from '@/components/earnings/earnings-overview';
 import { PaymentHistory } from '@/components/earnings/payment-history';
 import { WithdrawalDialog } from '@/components/earnings/withdrawal-dialog';
+import { StatCard, StatsGrid } from '@/components/dashboard/stat-card';
 import { Wallet, TrendingUp, Calendar } from 'lucide-react';
 import {
   Select,
@@ -32,37 +33,33 @@ export default function EarningsPage() {
         </Button>
       </div>
 
-      {/* Wallet Balance Card */}
-      <Card className="border-primary/20 bg-gradient-to-br from-primary/5 to-primary/10">
-        <CardContent className="pt-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div>
-              <p className="text-sm text-muted-foreground font-medium flex items-center gap-2">
-                <Wallet className="h-4 w-4" />
-                Available Balance
-              </p>
-              <p className="text-3xl font-bold mt-2">$2,845.50</p>
-              <p className="text-xs text-muted-foreground mt-1">Ready to withdraw</p>
-            </div>
-            <div>
-              <p className="text-sm text-muted-foreground font-medium flex items-center gap-2">
-                <TrendingUp className="h-4 w-4" />
-                Pending Earnings
-              </p>
-              <p className="text-3xl font-bold mt-2">$456.25</p>
-              <p className="text-xs text-muted-foreground mt-1">Processing</p>
-            </div>
-            <div>
-              <p className="text-sm text-muted-foreground font-medium flex items-center gap-2">
-                <Calendar className="h-4 w-4" />
-                This Month
-              </p>
-              <p className="text-3xl font-bold mt-2">$1,124.75</p>
-              <p className="text-xs text-muted-foreground mt-1">27 days left</p>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
+      {/* Stats Grid */}
+      <StatsGrid
+        cards={[
+          {
+            label: "Available Balance",
+            value: "$2,845.50",
+            icon: Wallet,
+            description: "Ready to withdraw",
+          },
+          {
+            label: "Pending Earnings",
+            value: "$456.25",
+            icon: TrendingUp,
+            trend: {
+              value: 5,
+              label: 'vs last week',
+              direction: 'up',
+            },
+          },
+          {
+            label: "This Month",
+            value: "$1,124.75",
+            icon: Calendar,
+            description: "27 days left",
+          },
+        ]}
+      />
 
       {/* Charts */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">

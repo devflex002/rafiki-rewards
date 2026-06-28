@@ -7,7 +7,8 @@ import { Badge } from '@/components/ui/badge';
 import { ReferralLinkForm } from '@/components/links/referral-link-form';
 import { ReferralLinksTable } from '@/components/links/referral-links-table';
 import { ShareModal } from '@/components/links/share-modal';
-import { Plus } from 'lucide-react';
+import { StatCard, StatsGrid } from '@/components/dashboard/stat-card';
+import { Link as LinkIcon, MousePointerClick, TrendingUp, Plus } from 'lucide-react';
 
 export default function LinksPage() {
   const [showForm, setShowForm] = useState(false);
@@ -27,27 +28,37 @@ export default function LinksPage() {
         </Button>
       </div>
 
-      {/* Quick Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <Card>
-          <CardContent className="pt-6">
-            <p className="text-sm text-muted-foreground font-medium">Total Links</p>
-            <p className="text-3xl font-bold mt-2">5</p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="pt-6">
-            <p className="text-sm text-muted-foreground font-medium">Total Clicks</p>
-            <p className="text-3xl font-bold mt-2">324</p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="pt-6">
-            <p className="text-sm text-muted-foreground font-medium">Avg Click-Through Rate</p>
-            <p className="text-3xl font-bold mt-2">45.2%</p>
-          </CardContent>
-        </Card>
-      </div>
+      {/* Stats Grid */}
+      <StatsGrid
+        cards={[
+          {
+            label: "Total Links",
+            value: "5",
+            icon: LinkIcon,
+            description: "Active referral links",
+          },
+          {
+            label: "Total Clicks",
+            value: "324",
+            icon: MousePointerClick,
+            trend: {
+              value: 23,
+              label: 'this month',
+              direction: 'up',
+            },
+          },
+          {
+            label: "Avg Click-Through Rate",
+            value: "45.2%",
+            icon: TrendingUp,
+            trend: {
+              value: 8,
+              label: 'vs last month',
+              direction: 'up',
+            },
+          },
+        ]}
+      />
 
       {/* Links Table */}
       <ReferralLinksTable onShare={setSelectedLink} />
