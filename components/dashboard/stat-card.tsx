@@ -25,7 +25,7 @@ export function StatCard({
 }: StatCardProps) {
   return (
     <Card className="shadow-sm">
-      <CardContent className="p-5 flex flex-col gap-1">
+      <CardContent className=" flex flex-col gap-1">
         <div className="flex items-center justify-between">
           <p className="text-sm font-medium text-muted-foreground">
             {label}
