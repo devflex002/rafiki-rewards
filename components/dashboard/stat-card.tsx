@@ -24,45 +24,52 @@ export function StatCard({
   description,
 }: StatCardProps) {
   return (
-    <Card className="border-l-4 border-l-primary shadow-sm hover:shadow-md transition-shadow">
-      <CardContent className="p-4">
-        <div className="flex items-start justify-between gap-3">
-          <div className="flex-1 min-w-0">
-            <p className="text-xs font-semibold text-muted-foreground uppercase tracking-tight">{label}</p>
-            <p className="text-xl font-bold mt-1">{value}</p>
-            {description && (
-              <p className="text-xs text-muted-foreground mt-1 line-clamp-2">{description}</p>
-            )}
-            {trend && (
-              <div className="mt-2 flex items-center gap-1">
-                {trend.direction === 'up' ? (
-                  <ArrowUpRight className="h-3 w-3 text-green-600" />
-                ) : (
-                  <ArrowDownRight className="h-3 w-3 text-red-600" />
-                )}
-                <span
-                  className={`text-xs font-medium ${trend.direction === 'up' ? 'text-green-600' : 'text-red-600'
-                    }`}
-                >
-                  {trend.value}% {trend.label}
-                </span>
-              </div>
-            )}
-          </div>
-          <div className="flex-shrink-0 rounded-md bg-primary/10 p-2">
-            <Icon className="h-4 w-4 text-primary" />
-          </div>
+    <Card className="shadow-sm">
+      <CardContent className="p-5 flex flex-col gap-1">
+        <div className="flex items-center justify-between">
+          <p className="text-sm font-medium text-muted-foreground">
+            {label}
+          </p>
+          <Icon className="h-4 w-4 text-muted-foreground" />
         </div>
+        
+        <div className="mt-1 flex items-baseline gap-2">
+          <h2 className="text-2xl font-semibold tracking-tight">{value}</h2>
+        </div>
+
+        {(description || trend) && (
+          <div className="mt-1 flex items-center text-xs text-muted-foreground gap-1.5">
+            {trend && (
+              <span
+                className={`inline-flex items-center font-medium ${
+                  trend.direction === 'up'
+                    ? 'text-emerald-600 dark:text-emerald-500'
+                    : 'text-rose-600 dark:text-rose-500'
+                }`}
+              >
+                {trend.direction === 'up' ? (
+                  <ArrowUpRight className="mr-0.5 h-3 w-3" />
+                ) : (
+                  <ArrowDownRight className="mr-0.5 h-3 w-3" />
+                )}
+                {trend.value}%
+              </span>
+            )}
+            {description && (
+              <span className="truncate">{description}</span>
+            )}
+          </div>
+        )}
       </CardContent>
     </Card>
   );
 }
 
-export interface StatCardConfig extends StatCardProps { }
+export interface StatCardConfig extends StatCardProps {}
 
 export function StatsGrid({ cards }: { cards: StatCardConfig[] }) {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
       {cards.map((card, index) => (
         <StatCard key={index} {...card} />
       ))}
