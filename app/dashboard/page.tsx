@@ -2,7 +2,7 @@
 
 import { Users, DollarSign, TrendingUp, Target } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { StatCard } from '@/components/dashboard/stat-card';
+import { StatCard, StatsGrid } from '@/components/dashboard/stat-card';
 import { RecentReferrals } from '@/components/dashboard/recent-referrals';
 import { EarningsChart } from '@/components/dashboard/earnings-chart';
 import Link from 'next/link';
@@ -22,40 +22,42 @@ export default function DashboardPage() {
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <StatCard
-          label="Total Referrals"
-          value="24"
-          icon={Users}
-          trend={{
-            value: 12,
-            label: 'this month',
-            direction: 'up',
-          }}
-        />
-        <StatCard
-          label="Active Referrals"
-          value="18"
-          icon={Target}
-          description="Members actively using platform"
-        />
-        <StatCard
-          label="Total Earnings"
-          value="$2,845.50"
-          icon={DollarSign}
-          trend={{
-            value: 8,
-            label: 'vs last week',
-            direction: 'up',
-          }}
-        />
-        <StatCard
-          label="Conversion Rate"
-          value="75%"
-          icon={TrendingUp}
-          description="Signup to active conversion"
-        />
-      </div>
+      <StatsGrid
+        cards={[
+          {
+            label: "Total Referrals",
+            value: "24",
+            icon: Users,
+            trend: {
+              value: 12,
+              label: 'this month',
+              direction: 'up',
+            },
+          },
+          {
+            label: "Active Referrals",
+            value: "18",
+            icon: Target,
+            description: "Members actively using platform",
+          },
+          {
+            label: "Total Earnings",
+            value: "$2,845.50",
+            icon: DollarSign,
+            trend: {
+              value: 8,
+              label: 'vs last week',
+              direction: 'up',
+            },
+          },
+          {
+            label: "Conversion Rate",
+            value: "75%",
+            icon: TrendingUp,
+            description: "Signup to active conversion",
+          },
+        ]}
+      />
 
       {/* Charts Row */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">

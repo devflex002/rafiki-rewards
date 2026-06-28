@@ -11,9 +11,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
 import {
-  Facebook,
-  Twitter,
-  Linkedin,
+  Send,
   Copy,
   Mail,
 } from 'lucide-react';
@@ -81,19 +79,19 @@ export function ShareModal({ link, onClose }: ShareModalProps) {
             <div className="grid grid-cols-2 gap-3">
               <a href={shareLinks.twitter} target="_blank" rel="noopener noreferrer">
                 <Button variant="outline" className="w-full gap-2">
-                  <Twitter className="h-4 w-4" />
+                  {/* <Twitter className="h-4 w-4" /> */}
                   <span className="hidden sm:inline">Twitter</span>
                 </Button>
               </a>
               <a href={shareLinks.facebook} target="_blank" rel="noopener noreferrer">
                 <Button variant="outline" className="w-full gap-2">
-                  <Facebook className="h-4 w-4" />
+                  <Send className="h-4 w-4" />
                   <span className="hidden sm:inline">Facebook</span>
                 </Button>
               </a>
               <a href={shareLinks.linkedin} target="_blank" rel="noopener noreferrer">
                 <Button variant="outline" className="w-full gap-2">
-                  <Linkedin className="h-4 w-4" />
+                  {/* <Linkedin className="h-4 w-4" /> */}
                   <span className="hidden sm:inline">LinkedIn</span>
                 </Button>
               </a>
