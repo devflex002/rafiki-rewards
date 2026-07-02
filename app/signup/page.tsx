@@ -15,7 +15,6 @@ export default function SignupPage() {
   const router = useRouter();
 
   const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -37,7 +36,7 @@ export default function SignupPage() {
     e.preventDefault();
 
     // Validate inputs
-    if (!name || !email || !phone || !password) {
+    if (!name || !phone || !password) {
       setError('Please fill in all fields');
       return;
     }
@@ -56,11 +55,11 @@ export default function SignupPage() {
     setLoading(true);
 
     try {
-      const success = await signup(phone, email, password, name);
+      const success = await signup(phone, '', password, name);
       if (success) {
         router.push('/dashboard');
       } else {
-        setError('This phone number or email is already registered.');
+        setError('This phone number is already registered.');
       }
     } catch (err) {
       console.error('Signup error:', err);
@@ -118,21 +117,6 @@ export default function SignupPage() {
                   placeholder="e.g. John Doe"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  required
-                  className="bg-zinc-950 border-zinc-800 text-zinc-100 placeholder-zinc-650 focus-visible:ring-purple-600 h-10 text-sm"
-                />
-              </div>
-
-              {/* Email */}
-              <div className="space-y-1.5">
-                <label className="text-sm font-bold text-zinc-400  flex items-center gap-1.5">
-                  📧 Email
-                </label>
-                <Input
-                  type="email"
-                  placeholder="e.g. john@example.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
                   required
                   className="bg-zinc-950 border-zinc-800 text-zinc-100 placeholder-zinc-650 focus-visible:ring-purple-600 h-10 text-sm"
                 />
