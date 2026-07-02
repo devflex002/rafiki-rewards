@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { verifyToken, getTokenFromRequest } from '@/lib/auth';
+import { verifyTokenEdge, getTokenFromRequest } from '@/lib/auth-edge';
 
 // Protected routes that require authentication
 const protectedRoutes = ['/dashboard', '/dashboard/earnings', '/dashboard/profile', '/dashboard/referrals'];
 
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // Check if this is a protected route
@@ -18,7 +18,7 @@ export function middleware(request: NextRequest) {
       return NextResponse.redirect(new URL('/login', request.url));
     }
 
-    const decoded = verifyToken(token);
+    const decoded = await verifyTokenEdge(token);
 
     if (!decoded) {
       // Redirect to login if token is invalid or expired
@@ -27,9 +27,9 @@ export function middleware(request: NextRequest) {
   }
 
   // Also redirect authenticated users away from login/signup pages
-  if ((pathname === '/login' || pathname === '/signup') && getTokenFromRequest(request)) {
+  if (pathname === '/login' || pathname === '/signup') {
     const token = getTokenFromRequest(request);
-    if (token && verifyToken(token)) {
+    if (token && await verifyTokenEdge(token)) {
       return NextResponse.redirect(new URL('/dashboard', request.url));
     }
   }

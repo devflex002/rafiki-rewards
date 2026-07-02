@@ -32,7 +32,7 @@ export function StatCard({
           </p>
           <Icon className="h-4 w-4 text-muted-foreground" />
         </div>
-        
+
         <div className="mt-1 flex items-baseline gap-2">
           <h2 className="text-2xl font-semibold tracking-tight">{value}</h2>
         </div>
@@ -41,11 +41,10 @@ export function StatCard({
           <div className="mt-1 flex items-center text-xs text-muted-foreground gap-1.5">
             {trend && (
               <span
-                className={`inline-flex items-center font-medium ${
-                  trend.direction === 'up'
-                    ? 'text-emerald-600 dark:text-emerald-500'
-                    : 'text-rose-600 dark:text-rose-500'
-                }`}
+                className={`inline-flex items-center font-medium ${trend.direction === 'up'
+                  ? 'text-emerald-600 dark:text-emerald-500'
+                  : 'text-rose-600 dark:text-rose-500'
+                  }`}
               >
                 {trend.direction === 'up' ? (
                   <ArrowUpRight className="mr-0.5 h-3 w-3" />
@@ -65,7 +64,7 @@ export function StatCard({
   );
 }
 
-export interface StatCardConfig extends StatCardProps {}
+export interface StatCardConfig extends StatCardProps { }
 
 export function StatsGrid({ cards }: { cards: StatCardConfig[] }) {
   const count = cards.length;
