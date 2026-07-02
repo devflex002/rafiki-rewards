@@ -35,9 +35,9 @@ export function Sidebar() {
   return (
     <div className="flex h-full w-64 flex-col border-r border-border bg-card">
       {/* Logo/Branding */}
-      <div className="flex items-center gap-2 border-b border-border px-6 py-6">
-        <div className="relative h-10 w-10 overflow-hidden bg-zinc-900 border border-zinc-850 rounded flex items-center justify-center">
-          <Image src="/logo.png" alt="Rafiki Rewards Logo" fill className="object-contain p-1" />
+      <div className="flex items-center gap-2 border-b border-border px-5 py-5">
+        <div className="relative h-12 w-12 flex-shrink-0">
+          <Image src="/logo.png" alt="Rafiki Rewards Logo" fill className="object-contain" />
         </div>
         <div className="flex flex-col">
           <span className="text-sm font-bold tracking-tight text-white leading-tight">Rafiki Rewards</span>

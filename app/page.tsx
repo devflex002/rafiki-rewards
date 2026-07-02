@@ -47,8 +47,8 @@ export default function Home() {
       <header className="border-b border-zinc-900 bg-zinc-950 px-6 py-4">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2 group">
-            <div className="relative h-9 w-9 overflow-hidden bg-zinc-900 border border-zinc-800 rounded flex items-center justify-center">
-              <Image src="/logo.png" alt="Rafiki Rewards Logo" fill className="object-contain p-1" />
+            <div className="relative h-11 w-11 flex-shrink-0">
+              <Image src="/logo.png" alt="Rafiki Rewards Logo" fill className="object-contain" />
             </div>
             <div className="flex flex-col">
               <span className="text-sm font-bold tracking-tight text-white">Rafiki Rewards</span>
@@ -168,8 +168,8 @@ export default function Home() {
       <footer className="border-t border-zinc-900 py-12 px-6 bg-zinc-950 text-xs text-zinc-500">
         <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-2">
-            <div className="relative w-6 h-6 overflow-hidden bg-zinc-900 border border-zinc-800 rounded flex items-center justify-center">
-              <Image src="/logo.png" alt="Rafiki Rewards Logo" fill className="object-contain p-0.5" />
+            <div className="relative w-8 h-8 flex-shrink-0">
+              <Image src="/logo.png" alt="Rafiki Rewards Logo" fill className="object-contain" />
             </div>
             <span className="font-bold text-zinc-300">Rafiki Rewards</span>
           </div>

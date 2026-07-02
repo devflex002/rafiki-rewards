@@ -55,12 +55,12 @@ export default function SignupPage() {
       <div className="w-full max-w-md bg-zinc-900/40 backdrop-blur-xl border border-zinc-800/80 p-8 rounded-2xl shadow-2xl relative z-10 space-y-6">
         {/* Header / Logo */}
         <div className="flex flex-col items-center space-y-2 text-center">
-          <div className="relative w-16 h-16 mb-2 flex items-center justify-center bg-zinc-900 rounded-2xl border border-zinc-800 shadow-inner animate-pulse">
+          <div className="relative w-20 h-20 mb-2">
             <Image 
               src="/logo.png" 
               alt="Rafiki Rewards Logo" 
               fill
-              className="object-contain p-2"
+              className="object-contain"
               priority
             />
           </div>

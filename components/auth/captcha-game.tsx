@@ -184,12 +184,12 @@ export function CaptchaGame({ onVerify }: CaptchaGameProps) {
           }}
         >
           {/* Logo container */}
-          <div className="w-10 h-10 relative flex items-center justify-center rounded-full bg-zinc-900">
+          <div className="relative w-10 h-10 flex items-center justify-center">
             <Image 
               src="/logo.png" 
               alt="Logo" 
-              width={28} 
-              height={28} 
+              width={36} 
+              height={36} 
               className={`object-contain pointer-events-none select-none ${isDragging ? 'rotate-12 transition-transform' : ''}`}
             />
           </div>
