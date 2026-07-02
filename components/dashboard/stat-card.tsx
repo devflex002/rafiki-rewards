@@ -24,24 +24,28 @@ export function StatCard({
   description,
 }: StatCardProps) {
   return (
-    <Card className="shadow-sm">
-      <CardContent className=" flex flex-col gap-1">
-        <div className="flex items-center justify-between">
-          <p className="text-sm font-medium text-muted-foreground">
-            {label}
-          </p>
-          <Icon className="h-4 w-4 text-muted-foreground" />
+    <Card className="shadow-sm hover:shadow-md transition-shadow">
+      <CardContent className="flex flex-col gap-3 p-5 sm:p-6">
+        <div className="flex items-start justify-between">
+          <div className="flex-1">
+            <p className="text-xs sm:text-sm font-medium text-muted-foreground">
+              {label}
+            </p>
+          </div>
+          <div className="flex-shrink-0 p-2 rounded-lg bg-primary/10">
+            <Icon className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
+          </div>
         </div>
 
-        <div className="mt-1 flex items-baseline gap-2">
-          <h2 className="text-2xl font-semibold tracking-tight">{value}</h2>
+        <div className="flex items-baseline gap-2">
+          <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold tracking-tight">{value}</h2>
         </div>
 
         {(description || trend) && (
-          <div className="mt-1 flex items-center text-xs text-muted-foreground gap-1.5">
+          <div className="flex items-center text-xs text-muted-foreground gap-1.5">
             {trend && (
               <span
-                className={`inline-flex items-center font-medium ${trend.direction === 'up'
+                className={`inline-flex items-center font-semibold ${trend.direction === 'up'
                   ? 'text-emerald-600 dark:text-emerald-500'
                   : 'text-rose-600 dark:text-rose-500'
                   }`}
@@ -70,15 +74,15 @@ export function StatsGrid({ cards }: { cards: StatCardConfig[] }) {
   const count = cards.length;
   let gridCols = "grid-cols-1";
   if (count === 2) {
-    gridCols = "grid-cols-1 md:grid-cols-2";
+    gridCols = "grid-cols-1 sm:grid-cols-2";
   } else if (count === 3) {
-    gridCols = "grid-cols-1 md:grid-cols-3";
+    gridCols = "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3";
   } else if (count >= 4) {
-    gridCols = "grid-cols-1 md:grid-cols-2 lg:grid-cols-4";
+    gridCols = "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4";
   }
 
   return (
-    <div className={`grid ${gridCols} gap-4`}>
+    <div className={`grid ${gridCols} gap-3 sm:gap-4 md:gap-6`}>
       {cards.map((card, index) => (
         <StatCard key={index} {...card} />
       ))}

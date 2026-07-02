@@ -35,12 +35,12 @@ export default function DashboardLayout({
   }
 
   return (
-    <div className="flex h-screen bg-background font-sans">
+    <div className="flex h-screen bg-background font-sans flex-col md:flex-row">
       <Sidebar />
-      <div className="flex-1 flex flex-col overflow-hidden">
+      <div className="flex-1 flex flex-col overflow-hidden w-full md:w-auto">
         <Header />
         <main className="flex-1 overflow-auto">
-          <div className="container mx-auto p-6">
+          <div className="container mx-auto w-full px-4 py-6 md:p-6 max-w-7xl">
             {children}
           </div>
         </main>
