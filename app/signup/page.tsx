@@ -47,15 +47,12 @@ export default function SignupPage() {
 
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col justify-center items-center px-4 py-12 relative overflow-hidden font-sans">
-      {/* Background Glows */}
-      <div className="absolute top-[-20%] right-[-10%] w-[50%] h-[50%] bg-purple-900/10 rounded-full blur-[120px] pointer-events-none" />
-      <div className="absolute bottom-[-20%] left-[-10%] w-[50%] h-[50%] bg-purple-900/10 rounded-full blur-[120px] pointer-events-none" />
 
       {/* Main Signup Card */}
-      <div className="w-full max-w-md bg-zinc-900/40 backdrop-blur-xl border border-zinc-800/80 p-8 rounded-2xl shadow-2xl relative z-10 space-y-6">
+      <div className="w-full max-w-md bg-zinc-900/40 backdrop-blur-xl border border-zinc-800/80 p-6 rounded-2xl shadow-2xl relative z-10 space-y-4">
         {/* Header / Logo */}
-        <div className="flex flex-col items-center space-y-2 text-center">
-          <div className="relative w-20 h-20 mb-2">
+        <div className="flex flex-col items-center  text-center">
+          <div className="relative w-48 h-48 -mt-8 mx-auto">
             <Image 
               src="/logo.png" 
               alt="Rafiki Rewards Logo" 
@@ -64,11 +61,11 @@ export default function SignupPage() {
               priority
             />
           </div>
-          <h1 className="text-2xl font-black tracking-tight text-white flex items-center gap-1.5 justify-center">
-            Create account <Sparkles className="h-5 w-5 text-purple-400" />
+          <h1 className="text-2xl -mt-12 font-black tracking-tight text-white flex items-center gap-1.5 justify-center">
+            Create account 
           </h1>
-          <p className="text-xs text-zinc-400 font-medium">
-            Start earning KES 1,000 per referral today!
+          <p className="text-xs mt-2 text-zinc-400 font-medium">
+            Start earning KES 1000 per referral today!
           </p>
         </div>
 
@@ -83,7 +80,7 @@ export default function SignupPage() {
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Full Name */}
           <div className="space-y-1.5">
-            <label className="text-xs font-bold text-zinc-400 uppercase tracking-wider flex items-center gap-1.5">
+            <label className="text-sm font-bold text-zinc-400  flex items-center gap-1.5">
               <User className="h-3 w-3" /> Full Name
             </label>
             <Input
@@ -98,7 +95,7 @@ export default function SignupPage() {
 
           {/* Phone Number */}
           <div className="space-y-1.5">
-            <label className="text-xs font-bold text-zinc-400 uppercase tracking-wider flex items-center gap-1.5">
+            <label className="text-sm font-bold text-zinc-400  flex items-center gap-1.5">
               <Phone className="h-3 w-3" /> Phone Number
             </label>
             <Input
@@ -113,7 +110,7 @@ export default function SignupPage() {
 
           {/* Password */}
           <div className="space-y-1.5">
-            <label className="text-xs font-bold text-zinc-400 uppercase tracking-wider flex items-center gap-1.5">
+            <label className="text-sm font-bold text-zinc-400 flex items-center gap-1.5">
               <Lock className="h-3 w-3" /> Password
             </label>
             <Input

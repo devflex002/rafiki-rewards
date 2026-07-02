@@ -35,13 +35,13 @@ export function Sidebar() {
   return (
     <div className="flex h-full w-64 flex-col border-r border-border bg-card">
       {/* Logo/Branding */}
-      <div className="flex items-center gap-2 border-b border-border px-5 py-5">
-        <div className="relative h-12 w-12 flex-shrink-0">
-          <Image src="/logo.png" alt="Rafiki Rewards Logo" fill className="object-contain" />
+      <div className="flex flex-col items-center gap-1 border-b border-border px-4 py-5">
+        <div className="relative h-20 w-20 flex-shrink-0">
+          <Image src="/logo.png" alt="Rafiki Rewards Logo" fill className="object-contain" priority />
         </div>
-        <div className="flex flex-col">
+        <div className="flex flex-col items-center">
           <span className="text-sm font-bold tracking-tight text-white leading-tight">Rafiki Rewards</span>
-          <span className="text-[9px] text-muted-foreground uppercase font-bold tracking-wider -mt-0.5">Refer & Earn</span>
+          <span className="text-[9px] text-muted-foreground uppercase font-bold tracking-wider">Refer & Earn</span>
         </div>
       </div>
 

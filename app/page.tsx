@@ -47,7 +47,7 @@ export default function Home() {
       <header className="border-b border-zinc-900 bg-zinc-950 px-6 py-4">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2 group">
-            <div className="relative h-11 w-11 flex-shrink-0">
+            <div className="relative h-14 w-14 flex-shrink-0">
               <Image src="/logo.png" alt="Rafiki Rewards Logo" fill className="object-contain" />
             </div>
             <div className="flex flex-col">
@@ -83,13 +83,11 @@ export default function Home() {
 
       {/* Hero Section */}
       <section className="py-24 px-6 max-w-4xl mx-auto text-center space-y-8">
-        <div className="inline-block px-3 py-1 bg-zinc-900 border border-zinc-800 rounded text-xs font-semibold text-purple-400 uppercase tracking-wider">
-          Direct Payout • KES 1,000 Per Friend
-        </div>
+
 
         <h1 className="text-4xl sm:text-6xl font-black tracking-tight text-white leading-tight">
           Refer your friends.<br />
-          Earn KES 1,000.
+          Earn KES 1000
         </h1>
 
         <p className="text-base sm:text-lg text-zinc-400 max-w-xl mx-auto leading-relaxed font-medium">

@@ -47,7 +47,7 @@ export default function LoginPage() {
       <div className="w-full max-w-md bg-zinc-900/40 backdrop-blur-xl border border-zinc-800/80 p-8 rounded-2xl shadow-2xl relative z-10 space-y-6">
         {/* Header / Logo */}
         <div className="flex flex-col items-center space-y-2 text-center">
-          <div className="relative w-20 h-20 mb-2">
+          <div className="relative w-32 h-32 mx-auto">
             <Image 
               src="/logo.png" 
               alt="Rafiki Rewards Logo" 

@@ -95,7 +95,7 @@ export function CaptchaGame({ onVerify }: CaptchaGameProps) {
   return (
     <div className="space-y-3 w-full">
       <div className="flex items-center justify-between">
-        <label className="text-xs font-bold text-zinc-400 uppercase tracking-wider flex items-center gap-1.5">
+        <label className="text-sm font-bold text-zinc-400 flex items-center gap-1.5">
           <span>Human Verification</span>
           {isVerified && <span className="text-[10px] text-emerald-400 font-medium lowercase">(verified!)</span>}
         </label>
@@ -110,7 +110,7 @@ export function CaptchaGame({ onVerify }: CaptchaGameProps) {
         )}
       </div>
 
-      <div className="text-xs text-zinc-500 font-medium mb-1">
+      <div className="text-xs text-zinc-500 font-medium mb-4 -mt-2">
         {isVerified 
           ? "Verification successful! You can now sign up." 
           : "Drag the Rafiki Coin into the Gift Box to unlock the form."}
@@ -188,8 +188,8 @@ export function CaptchaGame({ onVerify }: CaptchaGameProps) {
             <Image 
               src="/logo.png" 
               alt="Logo" 
-              width={36} 
-              height={36} 
+              width={46} 
+              height={46} 
               className={`object-contain pointer-events-none select-none ${isDragging ? 'rotate-12 transition-transform' : ''}`}
             />
           </div>
