@@ -21,6 +21,7 @@ export default function SignupPage() {
   const [isVerified, setIsVerified] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   // Redirect to dashboard if already authenticated
   useEffect(() => {

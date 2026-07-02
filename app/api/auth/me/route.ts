@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
-import { verifyToken, getTokenFromRequest } from '@/lib/auth';
+import { verifyTokenEdge, getTokenFromRequest } from '@/lib/auth-edge';
 
 const prisma = new PrismaClient();
 
@@ -15,7 +15,7 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    const decoded = verifyToken(token);
+    const decoded = await verifyTokenEdge(token);
 
     if (!decoded) {
       return NextResponse.json(

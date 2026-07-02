@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
-import { hashPassword, generateToken } from '@/lib/auth';
+import { hashPassword, generateTokenEdge } from '@/lib/auth';
+
+const prisma = new PrismaClient();
 
 const prisma = new PrismaClient();
 
@@ -52,7 +54,7 @@ export async function POST(request: NextRequest) {
     });
 
     // Generate token
-    const token = generateToken(user.id);
+    const token = await generateTokenEdge(user.id);
 
     return NextResponse.json(
       {
