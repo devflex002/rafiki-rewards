@@ -189,7 +189,7 @@ export function CaptchaGame({ onVerify }: CaptchaGameProps) {
               src="/logo.png" 
               alt="Logo" 
               width={46} 
-              height={46} 
+              height={46}
               className={`object-contain pointer-events-none select-none ${isDragging ? 'rotate-12 transition-transform' : ''}`}
             />
           </div>
