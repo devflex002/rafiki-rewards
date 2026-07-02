@@ -83,19 +83,6 @@ export default function LoginPage() {
               </p>
             </div>
 
-            {/* Demo Credentials Box - Only show in development */}
-            {process.env.NODE_ENV === 'development' && (
-              <div className="bg-purple-950/20 border border-purple-500/20 p-3 rounded-lg text-xs text-purple-300">
-                <p className="font-bold flex items-center gap-1.5 mb-1">
-                  <AlertCircle className="h-3.5 w-3.5" /> Demo Account Available
-                </p>
-                <p>
-                  Phone: <code className="bg-purple-900/30 px-1 py-0.5 rounded font-mono font-bold text-white">0712345678</code> &bull;
-                  Password: <code className="bg-purple-900/30 px-1 py-0.5 rounded font-mono font-bold text-white">password</code>
-                </p>
-              </div>
-            )}
-
             {error && (
               <div className="bg-destructive/10 border border-destructive/20 text-destructive-foreground px-3 py-2.5 rounded-lg text-xs font-semibold flex items-center gap-2">
                 <AlertCircle className="h-4 w-4 shrink-0 text-red-500" />
