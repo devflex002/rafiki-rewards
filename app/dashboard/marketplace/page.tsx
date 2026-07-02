@@ -4,11 +4,11 @@ import { AccountBrowser } from '@/components/accounts/account-browser';
 
 export default function MarketplacePage() {
   return (
-    <div className="space-y-8">
+    <div className="space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-bold">Marketplace</h1>
-        <p className="text-muted-foreground mt-1">Buy digital subscription accounts at great prices</p>
+        <h2 className="text-2xl font-bold">Marketplace</h2>
+        <p className="text-sm text-muted-foreground mt-1">Buy digital subscription accounts</p>
       </div>
 
       {/* Browse Accounts */}

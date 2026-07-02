@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import {
@@ -11,25 +11,21 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Input } from '@/components/ui/input';
 import {
   SUBSCRIPTION_SERVICES,
   CATEGORIES,
   SubscriptionCategory,
-  POPULAR_IN_KENYA,
 } from '@/lib/account-selling';
-import { Search, ShoppingCart } from 'lucide-react';
+import { ShoppingCart } from 'lucide-react';
 
 interface FilterOptions {
   category: string;
-  search: string;
   popularOnly: boolean;
 }
 
 export function AccountBrowser() {
   const [filters, setFilters] = useState<FilterOptions>({
     category: 'all',
-    search: '',
     popularOnly: false,
   });
 
@@ -40,36 +36,18 @@ export function AccountBrowser() {
     if (filters.popularOnly && !service.popularInKenya) {
       return false;
     }
-    if (filters.search && !service.name.toLowerCase().includes(filters.search.toLowerCase())) {
-      return false;
-    }
     return true;
   });
 
   return (
-    <div className="space-y-6">
-      {/* Header */}
-      <div>
-        <h2 className="text-2xl font-bold">Browse Accounts</h2>
-        <p className="text-muted-foreground mt-1">Buy and sell digital subscription accounts</p>
-      </div>
-
-      {/* Filters */}
-      <div className="flex flex-col sm:flex-row gap-4">
-        <div className="flex-1 relative">
-          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-          <Input
-            placeholder="Search services..."
-            value={filters.search}
-            onChange={(e) => setFilters({ ...filters, search: e.target.value })}
-            className="pl-10"
-          />
-        </div>
+    <div className="space-y-4">
+      {/* Filters - Compact */}
+      <div className="flex flex-col sm:flex-row gap-3">
         <Select
           value={filters.category}
           onValueChange={(value) => setFilters({ ...filters, category: value })}
         >
-          <SelectTrigger className="w-full sm:w-40">
+          <SelectTrigger className="w-full sm:w-48 h-9">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
@@ -84,53 +62,53 @@ export function AccountBrowser() {
         <Button
           variant={filters.popularOnly ? 'default' : 'outline'}
           onClick={() => setFilters({ ...filters, popularOnly: !filters.popularOnly })}
+          className="h-9 text-sm"
         >
           Popular in Kenya
         </Button>
       </div>
 
-      {/* Results */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      {/* Results Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
         {filteredServices.map((service) => (
-          <Card key={service.id} className="hover:shadow-lg transition-shadow">
-            <CardHeader>
-              <div className="flex items-start justify-between">
-                <div className="space-y-2 flex-1">
-                  <div className="text-3xl">{service.icon}</div>
-                  <CardTitle className="text-lg">{service.name}</CardTitle>
-                  <CardDescription>{service.description}</CardDescription>
+          <Card key={service.id} className="hover:shadow-md transition-shadow overflow-hidden">
+            <CardContent className="p-4 space-y-3">
+              {/* Icon & Title */}
+              <div className="flex items-start justify-between gap-2">
+                <div className="space-y-1 flex-1">
+                  <div className="text-2xl">{service.icon}</div>
+                  <h3 className="font-semibold text-sm">{service.name}</h3>
                 </div>
                 {service.popularInKenya && (
-                  <Badge className="bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200">
+                  <Badge className="bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200 text-xs whitespace-nowrap">
                     Popular
                   </Badge>
                 )}
               </div>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              {/* Features */}
-              <div>
-                <p className="text-xs text-muted-foreground font-medium mb-2">Features</p>
-                <div className="space-y-1">
-                  {service.features.map((feature, i) => (
-                    <p key={i} className="text-sm text-foreground/80">
-                      ✓ {feature}
-                    </p>
-                  ))}
-                </div>
+
+              <p className="text-xs text-muted-foreground">{service.description}</p>
+
+              {/* Features - Compact */}
+              <div className="space-y-1">
+                {service.features.slice(0, 2).map((feature, i) => (
+                  <p key={i} className="text-xs text-foreground/70">
+                    ✓ {feature}
+                  </p>
+                ))}
+                {service.features.length > 2 && (
+                  <p className="text-xs text-muted-foreground">+ {service.features.length - 2} more</p>
+                )}
               </div>
 
-              {/* Pricing */}
-              <div className="pt-4 border-t space-y-3">
+              {/* Price & Action */}
+              <div className="pt-2 border-t space-y-2">
                 <div>
-                  <p className="text-xs text-muted-foreground font-medium">Base Price</p>
-                  <p className="text-2xl font-bold">${service.basePrice.toFixed(2)}</p>
-                  <p className="text-xs text-muted-foreground">1 month</p>
+                  <p className="text-xs text-muted-foreground">Price</p>
+                  <p className="text-lg font-bold">${service.basePrice.toFixed(2)}</p>
                 </div>
-
-                <Button className="w-full gap-2">
-                  <ShoppingCart className="h-4 w-4" />
-                  Buy Now
+                <Button className="w-full h-8 text-sm gap-2">
+                  <ShoppingCart className="h-3.5 w-3.5" />
+                  Buy
                 </Button>
               </div>
             </CardContent>
@@ -140,8 +118,8 @@ export function AccountBrowser() {
 
       {filteredServices.length === 0 && (
         <Card>
-          <CardContent className="pt-8 pb-8 text-center">
-            <p className="text-muted-foreground">No services found matching your filters</p>
+          <CardContent className="py-8 text-center">
+            <p className="text-sm text-muted-foreground">No services found matching your filters</p>
           </CardContent>
         </Card>
       )}
