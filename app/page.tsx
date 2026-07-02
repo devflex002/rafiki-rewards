@@ -2,22 +2,13 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { ArrowRight, Check, Copy, Gift, HelpCircle } from 'lucide-react';
+import { ArrowRight, Gift, HelpCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export default function Home() {
-  const [copiedLink, setCopiedLink] = useState(false);
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
-
-  const referralLink = "rafikirewards.com/?ref=john-doe";
-
-  const handleCopy = () => {
-    navigator.clipboard.writeText(`https://${referralLink}`);
-    setCopiedLink(true);
-    setTimeout(() => setCopiedLink(false), 2000);
-  };
 
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();
@@ -77,7 +68,7 @@ export default function Home() {
       </header>
 
       {/* Hero Section */}
-      <section className="py-20 px-6 max-w-4xl mx-auto text-center space-y-8">
+      <section className="py-24 px-6 max-w-4xl mx-auto text-center space-y-8">
         <div className="inline-block px-3 py-1 bg-zinc-900 border border-zinc-800 rounded text-xs font-semibold text-purple-400 uppercase tracking-wider">
           Direct Payout • KES 1,000 Per Friend
         </div>
@@ -98,51 +89,10 @@ export default function Home() {
             </Button>
           </Link>
         </div>
-
-        {/* Minimal Interactive Mockup */}
-        <div className="pt-16 max-w-2xl mx-auto">
-          <div className="bg-zinc-900 border border-zinc-800 rounded text-left overflow-hidden shadow-2xl">
-            {/* Toolbar */}
-            <div className="px-4 py-2 border-b border-zinc-850 bg-zinc-950 flex items-center justify-between text-xs text-zinc-500 font-mono">
-              <span>referral_sharing_widget.sh</span>
-              <div className="flex gap-1">
-                <span className="w-2 h-2 rounded-full bg-zinc-800" />
-                <span className="w-2 h-2 rounded-full bg-zinc-800" />
-              </div>
-            </div>
-            {/* Body */}
-            <div className="p-6 space-y-4">
-              <div className="space-y-1">
-                <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-wider">Copy Link</span>
-                <div className="flex gap-2">
-                  <div className="flex-1 bg-zinc-950 border border-zinc-850 rounded px-3 py-2 text-xs font-mono text-zinc-300 flex items-center select-all">
-                    {referralLink}
-                  </div>
-                  <button
-                    onClick={handleCopy}
-                    className="px-4 bg-zinc-800 hover:bg-zinc-700 text-xs font-bold text-white rounded transition-colors"
-                  >
-                    {copiedLink ? "Copied!" : "Copy"}
-                  </button>
-                </div>
-              </div>
-              <div className="grid grid-cols-2 gap-4 pt-2">
-                <div className="p-3 bg-zinc-950 border border-zinc-850 rounded">
-                  <span className="text-[9px] font-bold text-zinc-500 uppercase">Referrals</span>
-                  <p className="text-xl font-bold text-white mt-0.5">24</p>
-                </div>
-                <div className="p-3 bg-zinc-950 border border-zinc-850 rounded">
-                  <span className="text-[9px] font-bold text-zinc-500 uppercase">Wallet Earnings</span>
-                  <p className="text-xl font-bold text-purple-400 mt-0.5">KES 24,000</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
       </section>
 
       {/* How it Works */}
-      <section className="py-20 px-6 bg-zinc-950 border-t border-zinc-900">
+      <section className="py-20 px-6 bg-zinc-900/30 border-t border-b border-zinc-900">
         <div className="max-w-5xl mx-auto space-y-12">
           <h2 className="text-2xl sm:text-3xl font-black text-center text-white tracking-tight">
             Three Steps to Get Paid
@@ -168,54 +118,6 @@ export default function Home() {
               <h3 className="text-lg font-bold text-white">Earn KES 1,000</h3>
               <p className="text-xs text-zinc-400 leading-relaxed font-medium">
                 Get KES 1,000 credited to your dashboard for every verified signup. Withdraw instantly via M-Pesa.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Pricing / Terms Info */}
-      <section className="py-20 px-6 border-t border-zinc-900 bg-zinc-900/10">
-        <div className="max-w-3xl mx-auto text-center space-y-6">
-          <h2 className="text-2xl font-black text-white tracking-tight">Simple and Transparent Rules</h2>
-          <p className="text-sm text-zinc-400 leading-relaxed font-medium">
-            There are no membership plans or tiers. Everyone earns the same rate.
-          </p>
-          <div className="bg-zinc-900 border border-zinc-850 rounded p-6 text-left grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="space-y-2">
-              <h4 className="text-sm font-bold text-white flex items-center gap-2">
-                <span className="w-1.5 h-1.5 bg-purple-500 rounded-full" />
-                KES 1,000 Per Referral
-              </h4>
-              <p className="text-xs text-zinc-500 leading-relaxed">
-                Flat commission rate. Billed immediately into your pending account balance.
-              </p>
-            </div>
-            <div className="space-y-2">
-              <h4 className="text-sm font-bold text-white flex items-center gap-2">
-                <span className="w-1.5 h-1.5 bg-purple-500 rounded-full" />
-                KES 5,000 Minimum Payout
-              </h4>
-              <p className="text-xs text-zinc-500 leading-relaxed">
-                Withdrawals can be requested once your balance crosses KES 5,000.
-              </p>
-            </div>
-            <div className="space-y-2">
-              <h4 className="text-sm font-bold text-white flex items-center gap-2">
-                <span className="w-1.5 h-1.5 bg-purple-500 rounded-full" />
-                Instant M-Pesa Clearances
-              </h4>
-              <p className="text-xs text-zinc-500 leading-relaxed">
-                Payout requests are verified and settled to your phone number within minutes.
-              </p>
-            </div>
-            <div className="space-y-2">
-              <h4 className="text-sm font-bold text-white flex items-center gap-2">
-                <span className="w-1.5 h-1.5 bg-purple-500 rounded-full" />
-                Zero Cost Signup
-              </h4>
-              <p className="text-xs text-zinc-500 leading-relaxed">
-                Free forever. Rafiki Rewards does not charge any setup or usage fees.
               </p>
             </div>
           </div>
