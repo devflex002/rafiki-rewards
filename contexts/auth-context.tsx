@@ -112,6 +112,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
       const data = await response.json();
       localStorage.setItem('rafiki_token', data.token);
+      document.cookie = `rafiki_token=${data.token}; path=/; max-age=604800; SameSite=Strict`;
       setUser(data.user);
       return true;
     } catch (error) {
@@ -138,6 +139,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
       const data = await response.json();
       localStorage.setItem('rafiki_token', data.token);
+      document.cookie = `rafiki_token=${data.token}; path=/; max-age=604800; SameSite=Strict`;
       setUser(data.user);
       return true;
     } catch (error) {

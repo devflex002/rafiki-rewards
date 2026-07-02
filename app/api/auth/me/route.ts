@@ -75,8 +75,8 @@ export async function GET(request: NextRequest) {
           bio: user.bio,
           role: user.role,
           createdAt: user.createdAt,
-          referrals: user.referrals,
-          transactions: user.transactions,
+          referrals: user.referrals || [],
+          transactions: user.transactions || [],
         },
       },
       { status: 200 }

@@ -11,7 +11,7 @@ export async function middleware(request: NextRequest) {
   const isProtectedRoute = protectedRoutes.some(route => pathname.startsWith(route));
 
   if (isProtectedRoute) {
-    const token = getTokenFromRequest(request);
+    const token = request.cookies.get('rafiki_token')?.value || getTokenFromRequest(request);
 
     if (!token) {
       // Redirect to login if no token
@@ -28,7 +28,7 @@ export async function middleware(request: NextRequest) {
 
   // Also redirect authenticated users away from login/signup pages
   if (pathname === '/login' || pathname === '/signup') {
-    const token = getTokenFromRequest(request);
+    const token = request.cookies.get('rafiki_token')?.value || getTokenFromRequest(request);
     if (token && await verifyTokenEdge(token)) {
       return NextResponse.redirect(new URL('/dashboard', request.url));
     }

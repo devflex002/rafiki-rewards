@@ -193,7 +193,7 @@ export default function SignupPage() {
             </form>
 
             {/* Footer info */}
-            <div className="text-center text-xs text-zinc-500 pt-2 border-t border-zinc-850">
+            <div className="text-center text-xs text-zinc-500 pt-2 border-zinc-850">
               Already have an account?{' '}
               <Link href="/login" className="text-purple-400 hover:text-purple-300 font-bold transition-colors font-sans">
                 Sign In

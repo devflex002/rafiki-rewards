@@ -43,11 +43,11 @@ export default function LoginPage() {
         router.push('/dashboard');
       } else {
         setError('Invalid phone number or password. Please try again.');
+        setLoading(false);
       }
     } catch (err) {
       console.error('Login error:', err);
       setError('An error occurred. Please check your connection and try again.');
-    } finally {
       setLoading(false);
     }
   };
@@ -140,7 +140,7 @@ export default function LoginPage() {
             </form>
 
             {/* Footer info */}
-            <div className="text-center text-xs text-zinc-500 pt-2 border-t border-zinc-850">
+            <div className="text-center text-xs text-zinc-500 pt-2  border-zinc-850">
               Don't have an account?{' '}
               <Link href="/signup" className="text-purple-400 hover:text-purple-300 font-bold transition-colors">
                 Create Account
