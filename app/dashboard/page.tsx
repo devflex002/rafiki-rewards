@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Users, DollarSign, MousePointer, Percent, Copy, Check, Mail, Send, MessageCircle } from 'lucide-react';
+import { Users, DollarSign, Copy, Check, Share2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
@@ -11,6 +11,7 @@ import { EarningsChart } from '@/components/dashboard/earnings-chart';
 
 function ReferralLinkCard() {
   const [copied, setCopied] = useState(false);
+  const [shared, setShared] = useState(false);
   const referralLink = "https://rafikirewards.com/?ref=john-doe";
 
   const handleCopy = () => {
@@ -19,10 +20,23 @@ function ReferralLinkCard() {
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const shareLinks = {
-    whatsapp: `https://api.whatsapp.com/send?text=Join%20me%20on%20Rafiki%20Rewards%20to%20start%20earning%20commissions!%20${encodeURIComponent(referralLink)}`,
-    twitter: `https://twitter.com/intent/tweet?url=${encodeURIComponent(referralLink)}&text=Join%20me%20on%20Rafiki%20Rewards%20to%20start%20earning%20commissions!`,
-    email: `mailto:?subject=Join%20Rafiki%20Rewards&body=Join%20me%20on%20Rafiki%20Rewards%20to%20start%20earning%20commissions:%20${encodeURIComponent(referralLink)}`,
+  const handleShare = async () => {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: 'Rafiki Rewards',
+          text: 'Join me on Rafiki Rewards to start earning commissions!',
+          url: referralLink,
+        });
+        setShared(true);
+        setTimeout(() => setShared(false), 2000);
+      } catch (err) {
+        console.log('Share cancelled or failed', err);
+      }
+    } else {
+      // Fallback to copy if navigator.share is not supported
+      handleCopy();
+    }
   };
 
   return (
@@ -50,29 +64,12 @@ function ReferralLinkCard() {
           </Button>
         </div>
 
-        {/* Quick Share Buttons */}
-        <div className="space-y-2 pt-2">
-          <p className="text-xs font-semibold text-muted-foreground">Quick Share</p>
-          <div className="grid grid-cols-3 gap-2">
-            <a href={shareLinks.whatsapp} target="_blank" rel="noopener noreferrer">
-              <Button variant="outline" size="sm" className="w-full gap-1.5 h-9 text-xs">
-                <MessageCircle className="h-4 w-4 text-emerald-500" />
-                <span>WhatsApp</span>
-              </Button>
-            </a>
-            <a href={shareLinks.twitter} target="_blank" rel="noopener noreferrer">
-              <Button variant="outline" size="sm" className="w-full gap-1.5 h-9 text-xs">
-                <Send className="h-4 w-4 text-sky-500" />
-                <span>Twitter</span>
-              </Button>
-            </a>
-            <a href={shareLinks.email}>
-              <Button variant="outline" size="sm" className="w-full gap-1.5 h-9 text-xs">
-                <Mail className="h-4 w-4 text-purple-500" />
-                <span>Email</span>
-              </Button>
-            </a>
-          </div>
+        {/* Share Button with native functionality */}
+        <div className="pt-2">
+          <Button onClick={handleShare} className="w-full h-9 gap-2 text-sm bg-purple-600 hover:bg-purple-500 text-white transition-colors">
+            <Share2 className="h-4 w-4" />
+            {shared ? 'Shared!' : 'Share Link'}
+          </Button>
         </div>
 
         {/* Stats Summary */}
