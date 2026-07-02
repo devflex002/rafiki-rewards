@@ -7,10 +7,10 @@ const prisma = new PrismaClient();
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { phone, email, name, password } = body;
+    const { phone, name, password } = body;
 
     // Validation
-    if (!phone || !email || !name || !password) {
+    if (!phone || !name || !password) {
       return NextResponse.json(
         { error: 'Missing required fields' },
         { status: 400 }
@@ -25,15 +25,13 @@ export async function POST(request: NextRequest) {
     }
 
     // Check if user already exists
-    const existingUser = await prisma.user.findFirst({
-      where: {
-        OR: [{ phone }, { email }],
-      },
+    const existingUser = await prisma.user.findUnique({
+      where: { phone },
     });
 
     if (existingUser) {
       return NextResponse.json(
-        { error: 'Phone number or email already registered' },
+        { error: 'Phone number already registered' },
         { status: 409 }
       );
     }
@@ -41,11 +39,11 @@ export async function POST(request: NextRequest) {
     // Hash password
     const hashedPassword = await hashPassword(password);
 
-    // Create user
+    // Create user with generated email
     const user = await prisma.user.create({
       data: {
         phone,
-        email,
+        email: `${phone}@rafiki-rewards.local`,
         name,
         password: hashedPassword,
         country: 'Kenya',
@@ -62,7 +60,6 @@ export async function POST(request: NextRequest) {
         user: {
           id: user.id,
           phone: user.phone,
-          email: user.email,
           name: user.name,
           balance: user.balance,
           pendingEarnings: user.pendingEarnings,

@@ -234,7 +234,7 @@ export function CaptchaGame({ onVerify }: CaptchaGameProps) {
       <div className="text-xs text-zinc-500 font-medium mb-4 -mt-2">
         {isVerified
           ? 'Verification successful! You can now sign up.'
-          : 'Drag the Rafiki Coin into the Gift Box to unlock the form.'}
+          : "Drag the Rafiki Coin into the target to verify you're human."}
       </div>
 
       {/* Main Track */}
