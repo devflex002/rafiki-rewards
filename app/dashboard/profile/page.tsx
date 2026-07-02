@@ -34,16 +34,6 @@ export default function ProfilePage() {
             icon: CreditCard,
             description: "Bank account",
           },
-          {
-            label: "Account Created",
-            value: "120 days",
-            icon: BarChart3,
-            trend: {
-              value: 2,
-              label: 'active months',
-              direction: 'up',
-            },
-          },
         ]}
       />
 

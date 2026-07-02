@@ -13,7 +13,7 @@ import {
 import { ReferralsTable } from '@/components/referrals/referrals-table';
 import { ReferralStats } from '@/components/referrals/referral-stats';
 import { StatCard, StatsGrid } from '@/components/dashboard/stat-card';
-import { Search, Download, Users } from 'lucide-react';
+import { Search, Download, Users, UserCheck } from 'lucide-react';
 
 export default function ReferralsPage() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -47,6 +47,12 @@ export default function ReferralsPage() {
               label: 'this month',
               direction: 'up',
             },
+          },
+          {
+            label: "Active Referrals",
+            value: "18",
+            icon: UserCheck,
+            description: "75% conversion rate",
           },
         ]}
       />

@@ -125,26 +125,6 @@ export default function DashboardPage() {
               direction: 'up',
             },
           },
-          {
-            label: "Link Clicks",
-            value: "1,245",
-            icon: MousePointer,
-            trend: {
-              value: 15,
-              label: 'this week',
-              direction: 'up',
-            },
-          },
-          {
-            label: "Conversion Rate",
-            value: "8.4%",
-            icon: Percent,
-            trend: {
-              value: 0.8,
-              label: 'vs last week',
-              direction: 'up',
-            },
-          },
         ]}
       />
 
