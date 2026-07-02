@@ -21,8 +21,6 @@ export function Sidebar() {
   const navigation = [
     { name: 'Dashboard', href: '/dashboard', icon: Home },
     { name: 'Referrals', href: '/dashboard/referrals', icon: Users },
-    { name: 'Referral Links', href: '/dashboard/links', icon: Link2 },
-    { name: 'Analytics', href: '/dashboard/analytics', icon: BarChart3 },
     { name: 'Earnings', href: '/dashboard/earnings', icon: Wallet },
     { name: 'Profile', href: '/dashboard/profile', icon: Settings },
   ];

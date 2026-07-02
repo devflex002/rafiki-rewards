@@ -68,8 +68,18 @@ export function StatCard({
 export interface StatCardConfig extends StatCardProps {}
 
 export function StatsGrid({ cards }: { cards: StatCardConfig[] }) {
+  const count = cards.length;
+  let gridCols = "grid-cols-1";
+  if (count === 2) {
+    gridCols = "grid-cols-1 md:grid-cols-2";
+  } else if (count === 3) {
+    gridCols = "grid-cols-1 md:grid-cols-3";
+  } else if (count >= 4) {
+    gridCols = "grid-cols-1 md:grid-cols-2 lg:grid-cols-4";
+  }
+
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+    <div className={`grid ${gridCols} gap-4`}>
       {cards.map((card, index) => (
         <StatCard key={index} {...card} />
       ))}
