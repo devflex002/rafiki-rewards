@@ -44,15 +44,15 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100 font-sans antialiased">
       {/* Navigation */}
-      <header className="border-b border-zinc-900 bg-zinc-950 px-6 py-4">
+      <header className="border-b border-zinc-900 bg-zinc-950 px-6 ">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2 group">
-            <div className="relative h-14 w-14 flex-shrink-0">
-              <Image src="/logo.png" alt="Rafiki Rewards Logo" fill className="object-contain" />
+            <div className="relative flex-shrink-0">
+              <Image width={120} height={100} src="/logo.png" alt="Rafiki Rewards Logo"  className="mt-2 object-contain" />
             </div>
-            <div className="flex flex-col">
-              <span className="text-sm font-bold tracking-tight text-white">Rafiki Rewards</span>
-              <span className="text-[9px] text-zinc-500 font-bold uppercase tracking-widest -mt-0.5">Refer & Earn</span>
+            <div className="flex flex-col -ml-8">
+              <span className="text-xl font-bold text-white">Rafiki Rewards</span>
+              <span className="text-sm text-zinc-500 font-bold  -mt-0.5">Refer & Earn</span>
             </div>
           </Link>
 
