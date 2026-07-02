@@ -5,7 +5,6 @@ import { Button } from '@/components/ui/button';
 import { StatCard, StatsGrid } from '@/components/dashboard/stat-card';
 import { RecentReferrals } from '@/components/dashboard/recent-referrals';
 import { EarningsChart } from '@/components/dashboard/earnings-chart';
-import { MarketplaceOverview } from '@/components/dashboard/marketplace-overview';
 import Link from 'next/link';
 
 export default function DashboardPage() {
@@ -18,9 +17,6 @@ export default function DashboardPage() {
           <p className="text-muted-foreground mt-1">Welcome back, John! Here's your overview.</p>
         </div>
         <div className="flex gap-2">
-          <Link href="/dashboard/marketplace">
-            <Button variant="outline">Browse Marketplace</Button>
-          </Link>
           <Link href="/dashboard/links">
             <Button>Create New Referral Link</Button>
           </Link>
@@ -59,9 +55,6 @@ export default function DashboardPage() {
           <EarningsChart />
         </div>
       </div>
-
-      {/* Marketplace Overview */}
-      <MarketplaceOverview />
 
       {/* Recent Referrals */}
       <RecentReferrals />
