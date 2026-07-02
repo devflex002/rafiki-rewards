@@ -38,13 +38,13 @@ export default function EarningsPage() {
         cards={[
           {
             label: "Available Balance",
-            value: "$2,845.50",
+            value: "KES 24,000",
             icon: Wallet,
             description: "Ready to withdraw",
           },
           {
             label: "Pending Earnings",
-            value: "$456.25",
+            value: "KES 3,000",
             icon: TrendingUp,
             trend: {
               value: 5,
@@ -68,9 +68,9 @@ export default function EarningsPage() {
           <CardContent>
             <div className="space-y-4">
               {[
-                { name: 'Alex Rodriguez', earnings: '$156.75' },
-                { name: 'James Murphy', earnings: '$203.00' },
-                { name: 'Sarah Johnson', earnings: '$124.50' },
+                { name: 'Alex Rodriguez', earnings: 'KES 4,000' },
+                { name: 'James Murphy', earnings: 'KES 6,000' },
+                { name: 'Sarah Johnson', earnings: 'KES 3,000' },
               ].map((item, i) => (
                 <div key={i} className="flex items-center justify-between py-2 border-b border-border last:border-0">
                   <span className="text-sm font-medium">{item.name}</span>

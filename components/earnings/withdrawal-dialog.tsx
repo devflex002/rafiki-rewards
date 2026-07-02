@@ -27,55 +27,55 @@ interface WithdrawalDialogProps {
 
 export function WithdrawalDialog({ open, onOpenChange }: WithdrawalDialogProps) {
   const [amount, setAmount] = useState('');
-  const [method, setMethod] = useState('bank');
+  const [method, setMethod] = useState('mpesa');
 
-  const availableBalance = 2845.5;
-  const minWithdrawal = 50;
+  const availableBalance = 24000;
+  const minWithdrawal = 5000;
 
   const isValid = amount && parseFloat(amount) >= minWithdrawal && parseFloat(amount) <= availableBalance;
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="sm:max-w-md bg-zinc-950 text-zinc-100 border-zinc-900">
         <DialogHeader>
           <DialogTitle>Withdraw Funds</DialogTitle>
-          <DialogDescription>
+          <DialogDescription className="text-zinc-400">
             Request a withdrawal from your available balance
           </DialogDescription>
         </DialogHeader>
 
         <div className="space-y-6 py-4">
           {/* Balance Info */}
-          <Card className="bg-muted p-4 border-0">
-            <p className="text-sm text-muted-foreground">Available Balance</p>
-            <p className="text-2xl font-bold">${availableBalance.toFixed(2)}</p>
-            <p className="text-xs text-muted-foreground mt-1">
-              Minimum withdrawal: ${minWithdrawal}
+          <Card className="bg-zinc-900 border-zinc-800 p-4">
+            <p className="text-xs text-zinc-400 font-bold uppercase">Available Balance</p>
+            <p className="text-2xl font-black text-white mt-1">KES {availableBalance.toLocaleString()}</p>
+            <p className="text-xs text-zinc-500 mt-1.5">
+              Minimum withdrawal: KES {minWithdrawal.toLocaleString()}
             </p>
           </Card>
 
           {/* Amount Input */}
           <div className="space-y-2">
-            <label className="text-sm font-medium">Amount to Withdraw</label>
+            <label className="text-xs font-bold text-zinc-400 uppercase">Amount to Withdraw (KES)</label>
             <div className="relative">
-              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">
-                $
+              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs font-bold text-zinc-500">
+                KES
               </span>
               <Input
                 type="number"
-                placeholder="0.00"
+                placeholder="0"
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
                 min={minWithdrawal}
                 max={availableBalance}
-                step="0.01"
-                className="pl-6"
+                step="100"
+                className="pl-12 bg-zinc-900 border-zinc-800 text-zinc-100 focus:outline-none focus:border-purple-500 h-10 text-sm"
               />
             </div>
             {amount && (
-              <p className="text-xs text-muted-foreground">
+              <p className="text-xs text-zinc-500">
                 {parseFloat(amount) < minWithdrawal
-                  ? `Minimum withdrawal is $${minWithdrawal}`
+                  ? `Minimum withdrawal is KES ${minWithdrawal.toLocaleString()}`
                   : parseFloat(amount) > availableBalance
                     ? 'Exceeds available balance'
                     : 'Amount looks good!'}
@@ -85,35 +85,35 @@ export function WithdrawalDialog({ open, onOpenChange }: WithdrawalDialogProps) 
 
           {/* Payment Method */}
           <div className="space-y-2">
-            <label className="text-sm font-medium">Payment Method</label>
+            <label className="text-xs font-bold text-zinc-400 uppercase">Payment Method</label>
             <Select value={method} onValueChange={setMethod}>
-              <SelectTrigger>
+              <SelectTrigger className="bg-zinc-900 border-zinc-800 text-zinc-100 text-sm h-10">
                 <SelectValue />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="bg-zinc-900 border-zinc-800 text-zinc-100">
+                <SelectItem value="mpesa">M-Pesa (Direct to Phone)</SelectItem>
                 <SelectItem value="bank">Bank Transfer</SelectItem>
-                <SelectItem value="paypal">PayPal</SelectItem>
-                <SelectItem value="stripe">Stripe Connect</SelectItem>
               </SelectContent>
             </Select>
           </div>
 
           {/* Fee Info */}
           {amount && isValid && (
-            <Card className="bg-yellow-50 dark:bg-yellow-950/20 border-yellow-200 dark:border-yellow-900 p-4">
-              <p className="text-sm text-yellow-800 dark:text-yellow-200">
-                <span className="font-semibold">Processing fee:</span> 2% (~$
-                {(parseFloat(amount) * 0.02).toFixed(2)}) will be deducted
+            <Card className="bg-zinc-900 border-zinc-800 p-4">
+              <p className="text-xs text-zinc-400">
+                <span className="font-semibold text-white">Processing fee:</span> 2% (~KES {(parseFloat(amount) * 0.02).toLocaleString()}) will be deducted
               </p>
             </Card>
           )}
         </div>
 
-        <DialogFooter>
-          <Button variant="outline" onClick={() => onOpenChange(false)}>
+        <DialogFooter className="gap-2 sm:gap-0">
+          <Button variant="outline" onClick={() => onOpenChange(false)} className="border-zinc-800 text-zinc-300 hover:bg-zinc-900 hover:text-white">
             Cancel
           </Button>
-          <Button disabled={!isValid}>Request Withdrawal</Button>
+          <Button disabled={!isValid} className="bg-purple-600 hover:bg-purple-500 text-white font-bold">
+            Request Payout
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>

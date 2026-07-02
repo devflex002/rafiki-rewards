@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Users, DollarSign, Copy, Check, Share2 } from 'lucide-react';
+import { Users, Wallet, Copy, Check, Share2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
@@ -80,7 +80,7 @@ function ReferralLinkCard() {
           </div>
           <div className="flex justify-between">
             <span>Commission Type:</span>
-            <span className="font-medium text-foreground">Flat 10% per Signup</span>
+            <span className="font-medium text-foreground">KES 1,000 per Signup</span>
           </div>
         </div>
       </CardContent>
@@ -114,8 +114,8 @@ export default function DashboardPage() {
           },
           {
             label: "Total Earnings",
-            value: "$2,845.50",
-            icon: DollarSign,
+            value: "KES 24,000",
+            icon: Wallet,
             trend: {
               value: 8,
               label: 'vs last week',
