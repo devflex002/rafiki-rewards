@@ -13,13 +13,17 @@ import { ArrowRight, AlertCircle, Phone, Lock, User, Sparkles } from 'lucide-rea
 export default function SignupPage() {
   const { signup } = useAuth();
   const router = useRouter();
-  
+
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [isVerified, setIsVerified] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+
+  const passwordsMatch = password && confirmPassword && password === confirmPassword;
+  const passwordError = confirmPassword && password !== confirmPassword ? 'Passwords do not match' : '';
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,7 +31,7 @@ export default function SignupPage() {
       setError('Please complete the verification game first.');
       return;
     }
-    
+
     setError('');
     setLoading(true);
 
@@ -53,16 +57,16 @@ export default function SignupPage() {
         {/* Header / Logo */}
         <div className="flex flex-col items-center  text-center">
           <div className="relative w-48 h-48 -mt-8 mx-auto">
-            <Image 
-              src="/logo.png" 
-              alt="Rafiki Rewards Logo" 
+            <Image
+              src="/logo.png"
+              alt="Rafiki Rewards Logo"
               fill
               className="object-contain"
               priority
             />
           </div>
           <h1 className="text-2xl -mt-12 font-black tracking-tight text-white flex items-center gap-1.5 justify-center">
-            Create account 
+            Create account
           </h1>
           <p className="text-xs mt-2 text-zinc-400 font-medium">
             Start earning KES 1000 per referral today!
@@ -119,23 +123,43 @@ export default function SignupPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="bg-zinc-950 border-zinc-800 text-zinc-100 placeholder-zinc-650 focus-visible:ring-purple-600 h-10 text-sm mb-4"
+              className="bg-zinc-950 border-zinc-800 text-zinc-100 placeholder-zinc-650 focus-visible:ring-purple-600 h-10 text-sm"
             />
           </div>
 
-          {/* Captcha Verification Game */}
-          <div className="pt-2">
-            <CaptchaGame onVerify={setIsVerified} />
+          {/* Confirm Password */}
+          <div className="space-y-1.5">
+            <label className="text-sm font-bold text-zinc-400 flex items-center gap-1.5">
+              <Lock className="h-3 w-3" /> Confirm Password
+            </label>
+            <Input
+              type="password"
+              placeholder="••••••••"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              required
+              className={`bg-zinc-950 border-zinc-800 text-zinc-100 placeholder-zinc-650 focus-visible:ring-purple-600 h-10 text-sm ${passwordError ? 'border-red-500/50' : ''
+                }`}
+            />
+            {passwordError && (
+              <p className="text-xs text-red-400 font-medium">{passwordError}</p>
+            )}
           </div>
+
+          {/* Captcha Verification Game - Only show if passwords match */}
+          {passwordsMatch && (
+            <div className="pt-2">
+              <CaptchaGame onVerify={setIsVerified} />
+            </div>
+          )}
 
           <Button
             type="submit"
             disabled={loading || !isVerified}
-            className={`w-full font-bold h-10 text-sm mt-4 transition-all duration-300 ${
-              isVerified
-                ? 'bg-purple-600 hover:bg-purple-500 text-white shadow-[0_0_20px_rgba(147,51,234,0.3)] active:scale-[0.98]'
-                : 'bg-zinc-800 text-zinc-500 border border-zinc-700/50 cursor-not-allowed'
-            }`}
+            className={`w-full font-bold h-10 text-sm mt-4 transition-all duration-300 ${isVerified
+              ? 'bg-purple-600 hover:bg-purple-500 text-white shadow-[0_0_20px_rgba(147,51,234,0.3)] active:scale-[0.98]'
+              : 'bg-zinc-800 text-zinc-500 border border-zinc-700/50 cursor-not-allowed'
+              }`}
           >
             {loading ? 'Creating account...' : 'Create Account'}
             <ArrowRight className="h-4 w-4 ml-1.5" />

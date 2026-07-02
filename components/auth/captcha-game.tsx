@@ -111,30 +111,28 @@ export function CaptchaGame({ onVerify }: CaptchaGameProps) {
       </div>
 
       <div className="text-xs text-zinc-500 font-medium mb-4 -mt-2">
-        {isVerified 
-          ? "Verification successful! You can now sign up." 
+        {isVerified
+          ? "Verification successful! You can now sign up."
           : "Drag the Rafiki Coin into the Gift Box to unlock the form."}
       </div>
 
       {/* Main Track */}
       <div
         ref={trackRef}
-        className={`relative w-full h-16 border rounded-full flex items-center p-1 overflow-hidden select-none transition-all duration-300 ${
-          isVerified 
-            ? 'bg-emerald-950/20 border-emerald-500/30' 
-            : isDragging 
-              ? 'bg-zinc-900 border-purple-500/40 shadow-[0_0_15px_rgba(168,85,247,0.1)]' 
+        className={`relative w-full h-16 border rounded-full flex items-center p-1 overflow-hidden select-none transition-all duration-300 ${isVerified
+            ? 'bg-emerald-950/20 border-emerald-500/30'
+            : isDragging
+              ? 'bg-zinc-900 border-purple-500/40 shadow-[0_0_15px_rgba(168,85,247,0.1)]'
               : 'bg-zinc-900 border-zinc-800'
-        }`}
+          }`}
         style={{ touchAction: 'none' }}
       >
         {/* Fill Background highlighting progress */}
         <div
-          className={`absolute left-0 top-0 h-full rounded-l-full transition-colors duration-300 ${
-            isVerified 
-              ? 'bg-emerald-500/10' 
+          className={`absolute left-0 top-0 h-full rounded-l-full transition-colors duration-300 ${isVerified
+              ? 'bg-emerald-500/10'
               : 'bg-purple-500/10'
-          }`}
+            }`}
           style={{ width: `${currentX + handleSize}px` }}
         />
 
@@ -147,13 +145,12 @@ export function CaptchaGame({ onVerify }: CaptchaGameProps) {
 
         {/* Target Zone */}
         <div
-          className={`absolute right-1 w-14 h-14 rounded-full flex items-center justify-center border transition-all duration-300 ${
-            isVerified
+          className={`absolute right-1 w-14 h-14 rounded-full flex items-center justify-center border transition-all duration-300 ${isVerified
               ? 'bg-emerald-500 border-emerald-400 text-white shadow-[0_0_15px_rgba(16,185,129,0.3)]'
               : dragPercent > 75
                 ? 'bg-purple-900 border-purple-400 text-purple-200 scale-105'
                 : 'bg-zinc-950 border-zinc-800 text-zinc-600'
-          }`}
+            }`}
         >
           {isVerified ? (
             <CheckCircle2 className="h-6 w-6 animate-bounce" />
@@ -168,13 +165,12 @@ export function CaptchaGame({ onVerify }: CaptchaGameProps) {
           onPointerDown={handlePointerDown}
           onPointerMove={handlePointerMove}
           onPointerUp={handlePointerUp}
-          className={`absolute rounded-full bg-zinc-950 border flex items-center justify-center cursor-grab active:cursor-grabbing shadow-lg transition-all select-none overflow-hidden ${
-            isVerified 
-              ? 'border-emerald-500 pointer-events-none' 
-              : isDragging 
-                ? 'border-purple-400 scale-105 shadow-[0_0_10px_rgba(168,85,247,0.3)]' 
+          className={`absolute rounded-full bg-zinc-950 border flex items-center justify-center cursor-grab active:cursor-grabbing shadow-lg transition-all select-none overflow-hidden ${isVerified
+              ? 'border-emerald-500 pointer-events-none'
+              : isDragging
+                ? 'border-purple-400 scale-105 shadow-[0_0_10px_rgba(168,85,247,0.3)]'
                 : 'border-zinc-800 hover:border-zinc-700'
-          }`}
+            }`}
           style={{
             width: `${handleSize}px`,
             height: `${handleSize}px`,
@@ -184,12 +180,12 @@ export function CaptchaGame({ onVerify }: CaptchaGameProps) {
           }}
         >
           {/* Logo container */}
-          <div className="relative w-10 h-10 flex items-center justify-center">
-            <Image 
-              src="/logo.png" 
-              alt="Logo" 
-              width={46} 
-              height={46}
+          <div className="relative w-14 h-14 flex items-center justify-center">
+            <Image
+              src="/logo.png"
+              alt="Logo"
+              width={66}
+              height={66}
               className={`object-contain pointer-events-none select-none ${isDragging ? 'rotate-12 transition-transform' : ''}`}
             />
           </div>
