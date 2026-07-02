@@ -1,0 +1,81 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                String     @id @default(cuid())
+  phone             String     @unique
+  email             String     @unique
+  name              String
+  password          String
+  country           String     @default("Kenya")
+  bio               String     @default("Rafiki Rewards Promoter. Sharing links, making impact!")
+  balance           Float      @default(0)
+  pendingEarnings   Float      @default(0)
+  role              String     @default("user")
+  createdAt         DateTime   @default(now())
+  updatedAt         DateTime   @updatedAt
+
+  // Relations
+  referrals         Referral[] @relation("ReferrerToReferral")
+  referredBy        Referral[] @relation("ReferralToUser")
+  transactions      Transaction[]
+}
+
+model Admin {
+  id                String     @id @default(cuid())
+  phone             String     @unique
+  email             String     @unique
+  name              String
+  password          String
+  role              String     @default("admin")
+  permissions       String[]   @default(["all"])
+  createdAt         DateTime   @default(now())
+  updatedAt         DateTime   @updatedAt
+}
+
+model Referral {
+  id                String     @id @default(cuid())
+  referrerId        String
+  referrer          User       @relation("ReferrerToReferral", fields: [referrerId], references: [id], onDelete: Cascade)
+  
+  referredUserId    String?
+  referredUser      User?      @relation("ReferralToUser", fields: [referredUserId], references: [id], onDelete: SetNull)
+  
+  name              String
+  email             String
+  avatar            String     @default("")
+  status            String     @default("Pending")
+  signupDate        DateTime   @default(now())
+  earnings          Float      @default(0)
+  
+  createdAt         DateTime   @default(now())
+  updatedAt         DateTime   @updatedAt
+
+  @@index([referrerId])
+  @@index([referredUserId])
+}
+
+model Transaction {
+  id                String     @id @default(cuid())
+  userId            String
+  user              User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  type              String     // "Withdrawal", "Referral Bonus", etc.
+  amount            Float
+  status            String     @default("Pending")
+  method            String     // "M-Pesa", "Bank Transfer", "Platform", etc.
+  
+  createdAt         DateTime   @default(now())
+  updatedAt         DateTime   @updatedAt
+
+  @@index([userId])
+}
