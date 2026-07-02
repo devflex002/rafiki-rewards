@@ -1,10 +1,17 @@
-import { jwtVerify } from 'jose';
+import { jwtVerify, SignJWT } from 'jose';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'your-super-secret-jwt-key-change-this-in-production-12345';
 
 // Encode secret as Uint8Array for jose (Web Crypto compatible)
 function getSecret() {
   return new TextEncoder().encode(JWT_SECRET);
+}
+
+export async function generateTokenEdge(userId: string): Promise<string> {
+  return new SignJWT({ userId })
+    .setProtectedHeader({ alg: 'HS256' })
+    .setExpirationTime('7d')
+    .sign(getSecret());
 }
 
 export async function verifyTokenEdge(token: string): Promise<{ userId: string } | null> {

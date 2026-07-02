@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { PrismaClient } from '@prisma/client';
-import { verifyPassword, generateTokenEdge } from '@/lib/auth';
+import { verifyPassword } from '@/lib/auth';
+import { generateTokenEdge } from '@/lib/auth-edge';
 
 const prisma = new PrismaClient();
 
