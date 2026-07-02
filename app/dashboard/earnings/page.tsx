@@ -6,19 +6,17 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { EarningsOverview } from '@/components/earnings/earnings-overview';
 import { PaymentHistory } from '@/components/earnings/payment-history';
 import { WithdrawalDialog } from '@/components/earnings/withdrawal-dialog';
-import { StatCard, StatsGrid } from '@/components/dashboard/stat-card';
+import { StatsGrid } from '@/components/dashboard/stat-card';
 import { Wallet, TrendingUp } from 'lucide-react';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
+import { useAuth } from '@/contexts/auth-context';
 
 export default function EarningsPage() {
+  const { user } = useAuth();
   const [openWithdraw, setOpenWithdraw] = useState(false);
   const [period, setPeriod] = useState('month');
+
+  const balance = user?.balance ?? 0;
+  const pending = user?.pendingEarnings ?? 0;
 
   return (
     <div className="space-y-8">
@@ -28,7 +26,7 @@ export default function EarningsPage() {
           <h1 className="text-3xl font-bold">Earnings & Wallet</h1>
           <p className="text-muted-foreground mt-1">Track your earnings and manage withdrawals</p>
         </div>
-        <Button onClick={() => setOpenWithdraw(true)} size="lg">
+        <Button onClick={() => setOpenWithdraw(true)} size="lg" className="bg-purple-600 hover:bg-purple-500 text-white font-bold transition-all shadow-[0_0_15px_rgba(147,51,234,0.15)]">
           Withdraw Funds
         </Button>
       </div>
@@ -38,17 +36,17 @@ export default function EarningsPage() {
         cards={[
           {
             label: "Available Balance",
-            value: "KES 24,000",
+            value: `KES ${balance.toLocaleString()}`,
             icon: Wallet,
             description: "Ready to withdraw",
           },
           {
             label: "Pending Earnings",
-            value: "KES 3,000",
+            value: `KES ${pending.toLocaleString()}`,
             icon: TrendingUp,
             trend: {
-              value: 5,
-              label: 'vs last week',
+              value: pending > 0 ? 100 : 0,
+              label: 'live tracking',
               direction: 'up',
             },
           },
@@ -60,23 +58,27 @@ export default function EarningsPage() {
         <div className="lg:col-span-2">
           <EarningsOverview period={period} />
         </div>
-        <Card>
+        <Card className="bg-zinc-900/40 border-zinc-800">
           <CardHeader>
             <CardTitle className="text-base">Top Referrals</CardTitle>
             <CardDescription>By earnings</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              {[
-                { name: 'Alex Rodriguez', earnings: 'KES 4,000' },
-                { name: 'James Murphy', earnings: 'KES 6,000' },
-                { name: 'Sarah Johnson', earnings: 'KES 3,000' },
-              ].map((item, i) => (
-                <div key={i} className="flex items-center justify-between py-2 border-b border-border last:border-0">
-                  <span className="text-sm font-medium">{item.name}</span>
-                  <span className="text-sm font-bold text-primary">{item.earnings}</span>
+              {(user?.referrals || [])
+                .filter((r) => r.status === 'Active')
+                .slice(0, 3)
+                .map((item, i) => (
+                  <div key={i} className="flex items-center justify-between py-2 border-b border-zinc-850 last:border-0">
+                    <span className="text-sm font-medium text-zinc-300">{item.name}</span>
+                    <span className="text-sm font-bold text-emerald-500">{item.earnings}</span>
+                  </div>
+                ))}
+              {(!user?.referrals || user.referrals.filter((r) => r.status === 'Active').length === 0) && (
+                <div className="text-center py-6 text-xs text-muted-foreground">
+                  No active referrals yet.
                 </div>
-              ))}
+              )}
             </div>
           </CardContent>
         </Card>

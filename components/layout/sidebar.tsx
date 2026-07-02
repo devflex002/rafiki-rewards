@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import {
   BarChart3,
@@ -14,9 +15,15 @@ import {
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { useAuth } from '@/contexts/auth-context';
 
 export function Sidebar() {
   const pathname = usePathname();
+  const { user, logout } = useAuth();
+
+  const initials = user?.name
+    ? user.name.split(' ').map((n) => n[0]).slice(0, 2).join('')
+    : 'U';
 
   const navigation = [
     { name: 'Dashboard', href: '/dashboard', icon: Home },
@@ -29,12 +36,12 @@ export function Sidebar() {
     <div className="flex h-full w-64 flex-col border-r border-border bg-card">
       {/* Logo/Branding */}
       <div className="flex items-center gap-2 border-b border-border px-6 py-6">
-        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-          <Gift className="h-6 w-6" />
+        <div className="relative h-10 w-10 overflow-hidden bg-zinc-900 border border-zinc-850 rounded flex items-center justify-center">
+          <Image src="/logo.png" alt="Rafiki Rewards Logo" fill className="object-contain p-1" />
         </div>
         <div className="flex flex-col">
-          <h1 className="text-lg font-bold">Rafiki</h1>
-          <p className="text-xs text-muted-foreground">Rewards</p>
+          <span className="text-sm font-bold tracking-tight text-white leading-tight">Rafiki Rewards</span>
+          <span className="text-[9px] text-muted-foreground uppercase font-bold tracking-wider -mt-0.5">Refer & Earn</span>
         </div>
       </div>
 
@@ -66,17 +73,20 @@ export function Sidebar() {
       <div className="border-t border-border px-3 py-4">
         <div className="flex items-center gap-3 rounded-md p-2">
           <Avatar className="h-10 w-10">
-            <AvatarImage src="https://avatar.vercel.sh/user" alt="User" />
-            <AvatarFallback>JD</AvatarFallback>
+            <AvatarImage src={`https://avatar.vercel.sh/${user?.name?.replace(/\s+/g, '')}`} alt={user?.name || 'User'} />
+            <AvatarFallback>{initials}</AvatarFallback>
           </Avatar>
           <div className="flex-1 min-w-0">
-            <p className="text-sm font-medium truncate">John Doe</p>
-            <p className="text-xs text-muted-foreground truncate">
-              john@example.com
+            <p className="text-sm font-semibold truncate text-white leading-none mb-1">{user?.name || 'User'}</p>
+            <p className="text-[10px] text-muted-foreground truncate font-mono">
+              {user?.phone || 'No phone'}
             </p>
           </div>
         </div>
-        <button className="mt-3 flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground">
+        <button
+          onClick={logout}
+          className="mt-3 flex w-full items-center gap-2 rounded-md px-3 py-2.5 text-xs font-bold text-red-400 hover:text-red-300 transition-colors hover:bg-red-500/10 cursor-pointer"
+        >
           <LogOut className="h-4 w-4" />
           <span>Logout</span>
         </button>

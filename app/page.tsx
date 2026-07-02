@@ -2,10 +2,13 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { ArrowRight, Gift, HelpCircle } from 'lucide-react';
+import Image from 'next/image';
+import { ArrowRight, HelpCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useAuth } from '@/contexts/auth-context';
 
 export default function Home() {
+  const { isAuthenticated } = useAuth();
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
@@ -44,8 +47,8 @@ export default function Home() {
       <header className="border-b border-zinc-900 bg-zinc-950 px-6 py-4">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2 group">
-            <div className="flex h-9 w-9 items-center justify-center bg-zinc-900 border border-zinc-800 text-purple-500">
-              <Gift className="h-5 w-5" />
+            <div className="relative h-9 w-9 overflow-hidden bg-zinc-900 border border-zinc-800 rounded flex items-center justify-center">
+              <Image src="/logo.png" alt="Rafiki Rewards Logo" fill className="object-contain p-1" />
             </div>
             <div className="flex flex-col">
               <span className="text-sm font-bold tracking-tight text-white">Rafiki Rewards</span>
@@ -54,15 +57,26 @@ export default function Home() {
           </Link>
 
           <div className="flex items-center gap-4">
-            <Link href="/dashboard" className="text-xs font-semibold text-zinc-400 hover:text-white transition-colors">
-              Log In
-            </Link>
-            <Link href="/dashboard">
-              <Button className="bg-purple-600 hover:bg-purple-500 text-white rounded text-xs px-4 py-2 font-bold transition-all">
-                Open Dashboard
-                <ArrowRight className="h-3.5 w-3.5 ml-1" />
-              </Button>
-            </Link>
+            {isAuthenticated ? (
+              <Link href="/dashboard">
+                <Button className="bg-purple-600 hover:bg-purple-500 text-white rounded text-xs px-4 py-2 font-bold transition-all">
+                  Open Dashboard
+                  <ArrowRight className="h-3.5 w-3.5 ml-1" />
+                </Button>
+              </Link>
+            ) : (
+              <>
+                <Link href="/login" className="text-xs font-semibold text-zinc-400 hover:text-white transition-colors">
+                  Log In
+                </Link>
+                <Link href="/signup">
+                  <Button className="bg-purple-600 hover:bg-purple-500 text-white rounded text-xs px-4 py-2 font-bold transition-all">
+                    Register
+                    <ArrowRight className="h-3.5 w-3.5 ml-1" />
+                  </Button>
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </header>
@@ -83,9 +97,9 @@ export default function Home() {
         </p>
 
         <div className="flex flex-col sm:flex-row justify-center items-center gap-4 pt-4">
-          <Link href="/dashboard">
+          <Link href={isAuthenticated ? "/dashboard" : "/signup"}>
             <Button className="bg-purple-600 hover:bg-purple-500 text-white text-sm px-6 py-3 font-bold rounded min-w-[200px]">
-              Start Earning Now
+              {isAuthenticated ? "Go to Dashboard" : "Start Earning Now"}
             </Button>
           </Link>
         </div>
@@ -154,8 +168,8 @@ export default function Home() {
       <footer className="border-t border-zinc-900 py-12 px-6 bg-zinc-950 text-xs text-zinc-500">
         <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-2">
-            <div className="w-6 h-6 bg-zinc-900 border border-zinc-800 flex items-center justify-center text-purple-500">
-              <Gift className="h-3 w-3" />
+            <div className="relative w-6 h-6 overflow-hidden bg-zinc-900 border border-zinc-800 rounded flex items-center justify-center">
+              <Image src="/logo.png" alt="Rafiki Rewards Logo" fill className="object-contain p-0.5" />
             </div>
             <span className="font-bold text-zinc-300">Rafiki Rewards</span>
           </div>

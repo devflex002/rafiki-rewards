@@ -19,6 +19,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Card } from '@/components/ui/card';
+import { useAuth } from '@/contexts/auth-context';
 
 interface WithdrawalDialogProps {
   open: boolean;
@@ -26,13 +27,24 @@ interface WithdrawalDialogProps {
 }
 
 export function WithdrawalDialog({ open, onOpenChange }: WithdrawalDialogProps) {
+  const { user, requestWithdrawal } = useAuth();
   const [amount, setAmount] = useState('');
   const [method, setMethod] = useState('mpesa');
 
-  const availableBalance = 24000;
+  const availableBalance = user?.balance ?? 0;
   const minWithdrawal = 5000;
 
   const isValid = amount && parseFloat(amount) >= minWithdrawal && parseFloat(amount) <= availableBalance;
+
+  const handleWithdrawal = () => {
+    if (!isValid) return;
+    
+    const success = requestWithdrawal(parseFloat(amount), method);
+    if (success) {
+      setAmount('');
+      onOpenChange(false);
+    }
+  };
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -111,7 +123,7 @@ export function WithdrawalDialog({ open, onOpenChange }: WithdrawalDialogProps) 
           <Button variant="outline" onClick={() => onOpenChange(false)} className="border-zinc-800 text-zinc-300 hover:bg-zinc-900 hover:text-white">
             Cancel
           </Button>
-          <Button disabled={!isValid} className="bg-purple-600 hover:bg-purple-500 text-white font-bold">
+          <Button disabled={!isValid} onClick={handleWithdrawal} className="bg-purple-600 hover:bg-purple-500 text-white font-bold">
             Request Payout
           </Button>
         </DialogFooter>

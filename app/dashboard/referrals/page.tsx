@@ -11,13 +11,18 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { ReferralsTable } from '@/components/referrals/referrals-table';
-import { ReferralStats } from '@/components/referrals/referral-stats';
-import { StatCard, StatsGrid } from '@/components/dashboard/stat-card';
+import { StatsGrid } from '@/components/dashboard/stat-card';
 import { Search, Download, Users, UserCheck } from 'lucide-react';
+import { useAuth } from '@/contexts/auth-context';
 
 export default function ReferralsPage() {
+  const { user } = useAuth();
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
+
+  const totalReferrals = user?.referrals?.length ?? 0;
+  const activeReferrals = user?.referrals?.filter((r) => r.status === 'Active')?.length ?? 0;
+  const conversionRate = totalReferrals > 0 ? Math.round((activeReferrals / totalReferrals) * 100) : 0;
 
   return (
     <div className="space-y-8">
@@ -29,7 +34,7 @@ export default function ReferralsPage() {
             Manage and track all your referrals
           </p>
         </div>
-        <Button variant="outline" size="lg" className="gap-2">
+        <Button variant="outline" size="lg" className="gap-2 border-zinc-800 text-zinc-300 hover:bg-zinc-900 hover:text-white">
           <Download className="h-4 w-4" />
           Export
         </Button>
@@ -40,19 +45,19 @@ export default function ReferralsPage() {
         cards={[
           {
             label: "Total Referrals",
-            value: "24",
+            value: totalReferrals.toString(),
             icon: Users,
             trend: {
-              value: 12,
-              label: 'this month',
+              value: totalReferrals > 0 ? 100 : 0,
+              label: 'live tracking',
               direction: 'up',
             },
           },
           {
             label: "Active Referrals",
-            value: "18",
+            value: activeReferrals.toString(),
             icon: UserCheck,
-            description: "75% conversion rate",
+            description: `${conversionRate}% conversion rate`,
           },
         ]}
       />
@@ -65,14 +70,14 @@ export default function ReferralsPage() {
             placeholder="Search referrals..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="pl-10"
+            className="pl-10 bg-zinc-950 border-zinc-800 focus-visible:ring-purple-600 h-10 text-sm"
           />
         </div>
         <Select value={statusFilter} onValueChange={setStatusFilter}>
-          <SelectTrigger className="w-full sm:w-40">
+          <SelectTrigger className="w-full sm:w-40 bg-zinc-950 border-zinc-800 text-sm h-10">
             <SelectValue placeholder="Filter by status" />
           </SelectTrigger>
-          <SelectContent>
+          <SelectContent className="bg-zinc-900 border-zinc-850 text-zinc-200">
             <SelectItem value="all">All Status</SelectItem>
             <SelectItem value="active">Active</SelectItem>
             <SelectItem value="pending">Pending</SelectItem>
@@ -82,7 +87,7 @@ export default function ReferralsPage() {
       </div>
 
       {/* Referrals Table */}
-      <ReferralsTable />
+      <ReferralsTable searchTerm={searchTerm} statusFilter={statusFilter} />
     </div>
   );
 }

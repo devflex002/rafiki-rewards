@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Inter, Figtree } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
+import { AuthProvider } from "@/contexts/auth-context";
 
 const figtree = Figtree({ subsets: ['latin'], variable: '--font-sans' });
 
@@ -31,7 +32,11 @@ export default function RootLayout({
       className={cn("h-full dark", "antialiased", geistSans.variable, geistMono.variable, "font-sans", figtree.variable)}
       suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col bg-background text-foreground">{children}</body>
+      <body className="min-h-full flex flex-col bg-background text-foreground font-sans">
+        <AuthProvider>
+          {children}
+        </AuthProvider>
+      </body>
     </html>
   );
 }

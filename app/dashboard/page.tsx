@@ -1,18 +1,23 @@
 'use client';
 
 import { useState } from 'react';
-import { Users, Wallet, Copy, Check, Share2 } from 'lucide-react';
+import { Users, Wallet, Copy, Check, Share2, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
-import { StatCard, StatsGrid } from '@/components/dashboard/stat-card';
+import { StatsGrid } from '@/components/dashboard/stat-card';
 import { RecentReferrals } from '@/components/dashboard/recent-referrals';
 import { EarningsChart } from '@/components/dashboard/earnings-chart';
+import { useAuth } from '@/contexts/auth-context';
 
 function ReferralLinkCard() {
+  const { user } = useAuth();
   const [copied, setCopied] = useState(false);
   const [shared, setShared] = useState(false);
-  const referralLink = "https://rafikirewards.com/?ref=john-doe";
+
+  // Generate unique link using phone number or default
+  const cleanPhone = user?.phone ? encodeURIComponent(user.phone) : 'john-doe';
+  const referralLink = `https://rafikirewards.com/?ref=${cleanPhone}`;
 
   const handleCopy = () => {
     navigator.clipboard.writeText(referralLink);
@@ -34,7 +39,6 @@ function ReferralLinkCard() {
         console.log('Share cancelled or failed', err);
       }
     } else {
-      // Fallback to copy if navigator.share is not supported
       handleCopy();
     }
   };
@@ -89,14 +93,28 @@ function ReferralLinkCard() {
 }
 
 export default function DashboardPage() {
+  const { user, simulateReferral } = useAuth();
+
+  const totalReferrals = user?.referrals?.length ?? 0;
+  const balance = user?.balance ?? 0;
+
   return (
     <div className="space-y-8">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h1 className="text-3xl font-bold">Dashboard</h1>
-          <p className="text-muted-foreground mt-1">Welcome back, John! Here's your overview.</p>
+          <p className="text-muted-foreground mt-1">
+            Welcome back, {user?.name || 'User'}! Here's your overview.
+          </p>
         </div>
+        <Button 
+          onClick={simulateReferral}
+          className="bg-purple-600 hover:bg-purple-500 text-white font-bold h-10 gap-1.5 px-4 shadow-[0_0_15px_rgba(147,51,234,0.2)] active:scale-[0.98] self-start sm:self-auto transition-all"
+        >
+          <Sparkles className="h-4.5 w-4.5" />
+          <span>Simulate New Referral</span>
+        </Button>
       </div>
 
       {/* Stats Grid */}
@@ -104,21 +122,21 @@ export default function DashboardPage() {
         cards={[
           {
             label: "Total Referrals",
-            value: "24",
+            value: totalReferrals.toString(),
             icon: Users,
             trend: {
-              value: 12,
-              label: 'this month',
+              value: totalReferrals > 0 ? 100 : 0,
+              label: 'live tracking',
               direction: 'up',
             },
           },
           {
             label: "Total Earnings",
-            value: "KES 24,000",
+            value: `KES ${balance.toLocaleString()}`,
             icon: Wallet,
             trend: {
-              value: 8,
-              label: 'vs last week',
+              value: balance > 0 ? 100 : 0,
+              label: 'payout ready',
               direction: 'up',
             },
           },
